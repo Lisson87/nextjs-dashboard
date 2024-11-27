@@ -6,6 +6,30 @@ import { sql } from "@vercel/postgres"; //для sql запросов в БД
 import { revalidatePath } from "next/cache"; //для очистки кеша и нового запроса данных с сервера
 import { redirect } from "next/navigation"; // для перенаправления пользователя на другую страницу
 
+//для аутентификации
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
+}
+
+
 export type State = {
   errors?: {
     customerId?: string[];
