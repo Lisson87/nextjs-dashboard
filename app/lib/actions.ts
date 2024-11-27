@@ -24,7 +24,7 @@ export async function createInvoice(formData: FormData) {
     });
     const amountInCents = amount * 100;
     const date = new Date().toISOString().split('T')[0];
-    
+
     // вставка значений в БД
     await sql`
     INSERT INTO invoices (customer_id, amount, status, date)
@@ -55,4 +55,10 @@ const UpdateInvoice = FormSchema.omit({ id: true, date: true });
    
     revalidatePath('/dashboard/invoices');
     redirect('/dashboard/invoices');
+  }
+
+
+  export async function deleteInvoice(id: string) {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+    revalidatePath('/dashboard/invoices');
   }
