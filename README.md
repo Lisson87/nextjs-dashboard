@@ -22,4 +22,9 @@ We suggest that you begin by typing:
   cd nextjs-dashboard
   pnpm run dev
 
+### chapter 15
+Try it out
+Now, try it out. You should be able to log in and out of your application using the following credentials:
 
+Email: user@nextmail.com
+Password: 123456
