@@ -7,15 +7,13 @@ import { revalidatePath } from "next/cache"; //для очистки кеша и
 import { redirect } from "next/navigation"; // для перенаправления пользователя на другую страницу
 
 //для аутентификации
-// import { signIn } from '@/auth';
-import { signIn, SignInOptions } from 'next-auth/react';
-
+import { signIn } from '@/auth';
+// import { signIn } from '@/app/middleware';
 import { AuthError } from 'next-auth';
 
 export async function authenticate(
   prevState: string | undefined,
-  // formData: FormData,
-  formData: SignInOptions,
+  formData: FormData,
 ) {
   try {
     await signIn('credentials', formData);
